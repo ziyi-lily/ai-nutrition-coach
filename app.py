@@ -62,13 +62,19 @@ def rule_plan(foods):
             ["spinach", "broccoli", "carrot"],
         ],
     }
-    plan = {}
+        plan = {}
+    used_ids = set()
+
     for meal, choices in groups.items():
-        plan[meal] = [
-            selected for selected in
-            [first_available(group, allowed_ids) for group in choices]
-            if selected
-        ]
+        plan[meal] = []
+
+        for group in choices:
+            selected = first_available(group, allowed_ids - used_ids)
+
+            if selected:
+                plan[meal].append(selected)
+                used_ids.add(selected)
+
     return plan
 
 def gemini_plan(foods, preference, goal, api_key):
@@ -165,7 +171,7 @@ if st.button("Generate one-day meal plan", type="primary"):
                     "Meal": meal,
                     "Food": food["name"],
                     "Sodium (mg)": food["sodium"],
-                    "Source": "USDA / prototype data",
+                    "Source": "Prototype dataset — values to be verified",
                 })
             else:
                 invalid_ids.append(food_id)
