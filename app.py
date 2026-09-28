@@ -153,7 +153,7 @@ if st.button("Generate one-day meal plan", type="primary"):
 
     with st.expander("Retrieved nutrition facts used for this plan"):
         st.dataframe(
-            [{"Food": f["name"], "Sodium (mg)": f["sodium"],"Source": f.get("source", "USDA FoodData Central")
+            [{"Food": f["name"], "Sodium (mg)": f["sodium"],"Source": f.get("source", "USDA FoodData Central")}
              for f in retrieved],
             hide_index=True,
             width="stretch",
