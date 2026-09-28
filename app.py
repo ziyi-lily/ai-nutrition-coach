@@ -62,7 +62,7 @@ def rule_plan(foods):
             ["spinach", "broccoli", "carrot"],
         ],
     }
-        plan = {}
+    plan = {}
     used_ids = set()
 
     for meal, choices in groups.items():
