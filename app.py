@@ -21,20 +21,6 @@ FOODS = [
     {"id": "cucumber", "name": "Fresh cucumber", "diet": "vegetarian", "sodium": 2},
     {"id": "soy_sauce", "name": "Regular soy sauce", "diet": "vegetarian", "sodium": 879},
     {"id": "instant_noodles", "name": "Instant noodles", "diet": "vegetarian", "sodium": 1200},   
-    {
-        "id": "sg_steamed_chicken_rice_rice",
-        "name": "Steamed chicken rice (rice only)",
-        "diet": "general",
-        "sodium": 847,
-        "source": "SG FoodID — Lab Analysis (2025); 1 plate (220 g)",
-    },
-    {
-        "id": "sg_sliced_fish_soup",
-        "name": "Sliced fish soup (no milk)",
-        "diet": "general",
-        "sodium": 2407,
-        "source": "SG FoodID — Lab Analysis (2023); 1 bowl (561 g)",
-    },
 ]
 
 TARGET_SODIUM = 2000
