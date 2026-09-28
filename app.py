@@ -20,7 +20,21 @@ FOODS = [
     {"id": "sweet_potato", "name": "Baked sweet potato", "diet": "vegetarian", "sodium": 41},
     {"id": "cucumber", "name": "Fresh cucumber", "diet": "vegetarian", "sodium": 2},
     {"id": "soy_sauce", "name": "Regular soy sauce", "diet": "vegetarian", "sodium": 879},
-    {"id": "instant_noodles", "name": "Instant noodles", "diet": "vegetarian", "sodium": 1200},
+    {"id": "instant_noodles", "name": "Instant noodles", "diet": "vegetarian", "sodium": 1200},   
+    {
+        "id": "sg_steamed_chicken_rice_rice",
+        "name": "Steamed chicken rice (rice only)",
+        "diet": "general",
+        "sodium": 847,
+        "source": "SG FoodID — Lab Analysis (2025); 1 plate (220 g)",
+    },
+    {
+        "id": "sg_sliced_fish_soup",
+        "name": "Sliced fish soup (no milk)",
+        "diet": "general",
+        "sodium": 2407,
+        "source": "SG FoodID — Lab Analysis (2023); 1 bowl (561 g)",
+    },
 ]
 
 TARGET_SODIUM = 2000
@@ -33,7 +47,7 @@ def retrieve_foods(preference, dislikes):
             or (preference == "Vegetarian" and food["diet"] == "vegetarian")
             or (preference == "Halal" and food["diet"] in ["vegetarian", "halal"])
         )
-        if allowed_diet and food["name"] not in dislikes and food["sodium"] <= 400:
+        if allowed_diet and food["name"] not in dislikes:
             result.append(food)
     return result
 
@@ -139,7 +153,7 @@ if st.button("Generate one-day meal plan", type="primary"):
 
     with st.expander("Retrieved nutrition facts used for this plan"):
         st.dataframe(
-            [{"Food": f["name"], "Sodium (mg)": f["sodium"], "Source": "USDA / prototype data"}
+            [{"Food": f["name"], "Sodium (mg)": f["sodium"],"Source": f.get("source", "USDA FoodData Central")
              for f in retrieved],
             hide_index=True,
             width="stretch",
@@ -171,7 +185,7 @@ if st.button("Generate one-day meal plan", type="primary"):
                     "Meal": meal,
                     "Food": food["name"],
                     "Sodium (mg)": food["sodium"],
-                    "Source": "Prototype dataset — values to be verified",
+                    "Source": food.get("source", "USDA FoodData Central"),
                 })
             else:
                 invalid_ids.append(food_id)
