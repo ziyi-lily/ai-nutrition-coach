@@ -194,6 +194,7 @@ if st.button("Generate one-day meal plan", type="primary"):
 st.divider()
 st.subheader("Limitations")
 st.write(
-    "This is a prototype. Food sodium can change by brand, portion size, recipe, "
-    "and sauce. Final values and citations must be verified with SG FoodID or USDA FoodData Central."
+    "This is a prototype. Sodium estimates cover only the listed foods and stated portions; "
+    "extra added salt, sauces, soup bases and snacks are not captured unless included as a listed item. "
+    "Sodium can vary by brand, recipe and portion size. Dietary preferences are category-based and do not confirm formal Halal certification."
 )
