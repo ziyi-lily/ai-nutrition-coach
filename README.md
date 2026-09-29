@@ -14,3 +14,12 @@ The current curated retrieval set contains 18 ingredient-level foods. Each food 
 ## Limitations
 
 Sodium estimates cover only the listed foods and stated portions. Extra added salt, sauces, soup bases and snacks are not captured unless included as a listed item. Sodium can vary by brand, recipe and portion size. Dietary preferences are category-based and do not confirm formal Halal certification.
+
+## Evaluation example
+
+Test profile: Balanced everyday meals, General preference, with Baked chicken breast avoided.
+
+| Method | Estimated sodium | Safety check | Avoided food excluded |
+|---|---:|---|---|
+| Gemini + retrieval | 587.18 mg | Pass | Yes |
+| Rule-only baseline | 448.18 mg | Pass | Yes |
