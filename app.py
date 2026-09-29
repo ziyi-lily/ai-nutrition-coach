@@ -158,39 +158,39 @@ if st.button("Generate one-day meal plan", type="primary"):
         plan = rule_plan(retrieved)
         used_method = "Rule-only baseline"
 
-        food_map = {food["id"]: food for food in retrieved}
+    food_map = {food["id"]: food for food in retrieved}
 
-        def build_rows(candidate_plan):
-            rows = []
-            invalid_ids = []
+    def build_rows(candidate_plan):
+        rows = []
+        invalid_ids = []
 
-            for meal, food_ids in candidate_plan.items():
-                for food_id in food_ids:
-                    if food_id in food_map:
-                        food = food_map[food_id]
-                        rows.append({
-                            "Meal": meal,
-                            "Food": food["name"],
-                            "Sodium (mg)": food["sodium"],
-                            "Source": food.get("source", "USDA FoodData Central"),
-                        })
-                    else:
-                        invalid_ids.append(food_id)
+        for meal, food_ids in candidate_plan.items():
+            for food_id in food_ids:
+                if food_id in food_map:
+                    food = food_map[food_id]
+                    rows.append({
+                        "Meal": meal,
+                        "Food": food["name"],
+                        "Sodium (mg)": food["sodium"],
+                        "Source": food.get("source", "USDA FoodData Central"),
+                    })
+                else:
+                    invalid_ids.append(food_id)
 
-            total_sodium = sum(row["Sodium (mg)"] for row in rows)
-            is_safe = not invalid_ids and total_sodium <= TARGET_SODIUM
-            return rows, invalid_ids, total_sodium, is_safe
+        total_sodium = sum(row["Sodium (mg)"] for row in rows)
+        is_safe = not invalid_ids and total_sodium <= TARGET_SODIUM
+        return rows, invalid_ids, total_sodium, is_safe
 
+    rows, invalid_ids, total_sodium, is_safe = build_rows(plan)
+
+    if not is_safe and used_method == "Gemini + retrieved nutrition facts":
+        st.warning(
+            "Gemini output did not pass safety validation. "
+            "Switched to the rule-only baseline."
+        )
+        plan = rule_plan(retrieved)
+        used_method = "Rule-only baseline safety fallback"
         rows, invalid_ids, total_sodium, is_safe = build_rows(plan)
-
-        if not is_safe and used_method == "Gemini + retrieved nutrition facts":
-            st.warning(
-                "Gemini output did not pass safety validation. "
-                "Switched to the rule-only baseline."
-            )
-            plan = rule_plan(retrieved)
-            used_method = "Rule-only baseline safety fallback"
-            rows, invalid_ids, total_sodium, is_safe = build_rows(plan)
     st.subheader("Generated meal plan")
     st.write(f"**Method used:** {used_method}")
     st.dataframe(rows, hide_index=True, width="stretch")
