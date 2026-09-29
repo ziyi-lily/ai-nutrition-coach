@@ -215,7 +215,21 @@ if st.button("Generate one-day meal plan", type="primary"):
         st.success("Passed checks: foods came from the retrieved set and the sodium target was met.")
     else:
         st.error("This output is not a safe recommendation. Generate again or adjust the input.")
+    if model_usage:
+        input_tokens = model_usage["input_tokens"]
+        output_tokens = model_usage["output_tokens"]
+        thinking_tokens = model_usage["thinking_tokens"]
 
+        estimated_paid_cost_usd = (
+            input_tokens * 0.25 / 1_000_000
+            + (output_tokens + thinking_tokens) * 1.50 / 1_000_000
+        )
+
+        st.caption(
+            f"Gemini 3.1 Flash-Lite usage: {input_tokens:,} input tokens, "
+            f"{output_tokens:,} output tokens, and {thinking_tokens:,} thinking tokens. "
+            f"Estimated paid API cost: US${estimated_paid_cost_usd:.6f} per plan."
+        )
 st.divider()
 st.subheader("Limitations")
 st.write(
