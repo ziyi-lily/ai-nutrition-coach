@@ -108,7 +108,18 @@ Return JSON only:
             response_mime_type="application/json",
         ),
     )
-    return json.loads(response.text)
+       plan = json.loads(response.text)
+
+    usage = getattr(response, "usage_metadata", None)
+    model_usage = None
+    if usage:
+        model_usage = {
+            "input_tokens": int(getattr(usage, "prompt_token_count", 0) or 0),
+            "output_tokens": int(getattr(usage, "candidates_token_count", 0) or 0),
+            "thinking_tokens": int(getattr(usage, "thoughts_token_count", 0) or 0),
+        }
+
+    return plan, model_usage
 
 st.set_page_config(page_title="AI Nutrition Coach", page_icon="🥗")
 st.title("🥗 AI Personalized Nutrition Coach")
@@ -144,9 +155,10 @@ if st.button("Generate one-day meal plan", type="primary"):
             width="stretch",
         )
 
+    model_usage = None
     if method == "Gemini + retrieval" and api_key:
         try:
-            plan = gemini_plan(retrieved, preference, goal, api_key)
+            plan, model_usage = gemini_plan(retrieved, preference, goal, api_key)
             used_method = "Gemini + retrieved nutrition facts"
         except Exception as error:
             st.warning(f"Gemini could not run: {error}")
