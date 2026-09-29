@@ -108,18 +108,18 @@ Return JSON only:
             response_mime_type="application/json",
         ),
     )
-       plan = json.loads(response.text)
+   plan = json.loads(response.text)
 
-    usage = getattr(response, "usage_metadata", None)
-    model_usage = None
-    if usage:
-        model_usage = {
-            "input_tokens": int(getattr(usage, "prompt_token_count", 0) or 0),
-            "output_tokens": int(getattr(usage, "candidates_token_count", 0) or 0),
-            "thinking_tokens": int(getattr(usage, "thoughts_token_count", 0) or 0),
-        }
+usage = getattr(response, "usage_metadata", None)
+model_usage = None
+if usage:
+    model_usage = {
+        "input_tokens": int(getattr(usage, "prompt_token_count", 0) or 0),
+        "output_tokens": int(getattr(usage, "candidates_token_count", 0) or 0),
+        "thinking_tokens": int(getattr(usage, "thoughts_token_count", 0) or 0),
+    }
 
-    return plan, model_usage
+return plan, model_usage
 
 st.set_page_config(page_title="AI Nutrition Coach", page_icon="🥗")
 st.title("🥗 AI Personalized Nutrition Coach")
