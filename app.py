@@ -183,7 +183,7 @@ if st.button("Generate one-day meal plan", type="primary"):
     st.dataframe(rows, hide_index=True, width="stretch")
 
     metric1, metric2 = st.columns(2)
-    metric1.metric("Estimated daily sodium", f"{total_sodium:,} mg")
+    metric1.metric("Estimated daily sodium", f"{total_sodium:,.2f} mg")
     metric2.metric("Safety target", f"≤ {TARGET_SODIUM:,} mg", "Pass" if is_safe else "Fail")
 
     if is_safe:
