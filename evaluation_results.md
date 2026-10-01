@@ -62,7 +62,7 @@ For one observed Gemini + retrieval plan:
 | Input tokens | 356 |
 | Output tokens | 60 |
 | Thinking tokens | 0 |
-| Estimated paid API cost | US$0.000232 per plan |
+| Estimated paid API cost | US$0.000179 per plan |
 | Model calls per plan | 1 |
 
 The rule-only baseline has no model API cost.
