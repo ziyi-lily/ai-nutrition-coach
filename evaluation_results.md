@@ -59,8 +59,8 @@ For one observed Gemini + retrieval plan:
 | Item | Observed value |
 |---|---:|
 | Model | Gemini 3.1 Flash-Lite |
-| Input tokens | 370 |
-| Output tokens | 93 |
+| Input tokens | 356 |
+| Output tokens | 60 |
 | Thinking tokens | 0 |
 | Estimated paid API cost | US$0.000232 per plan |
 | Model calls per plan | 1 |
