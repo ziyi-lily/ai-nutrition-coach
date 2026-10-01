@@ -77,4 +77,4 @@ Test profile: `Balanced everyday meals`, `General` preference, with `Baked chick
 
 Both methods use the same filtered food set. The comparison is therefore between a Gemini-generated plan and a deterministic rule-only plan, rather than between two different nutrition databases.
 
-In one observed Gemini run, Gemini 3.1 Flash-Lite used 370 input tokens, 93 output tokens, and 0 thinking
+In one observed Gemini run, Gemini 3.1 Flash-Lite used 356 input tokens, 60 output tokens, and 0 thinking
