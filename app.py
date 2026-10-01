@@ -1,3 +1,12 @@
+"""
+AI Personalized Nutrition Coach
+
+A Streamlit PE6201 prototype that filters 18 curated nutrition records,
+generates a one-day meal plan with Gemini 3.1 Flash-Lite or a rule-only
+baseline, and performs deterministic sodium and avoided-food checks.
+
+The app is an educational decision-support prototype, not medical advice.
+"""
 import json
 import streamlit as st
 
